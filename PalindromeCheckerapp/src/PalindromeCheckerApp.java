@@ -1,4 +1,4 @@
-import java.util.*
+import java.util.*;
 import java.util.Stack;
 import java.util.Scanner;
 public class PalindromeCheckerApp {
@@ -7,26 +7,23 @@ public class PalindromeCheckerApp {
         System.out.print("Enter a string: ");
         String input = sc.nextLine();
 
-        // Create Queue and Stack
-        Queue<Character> queue = new LinkedList<>();
-        Stack<Character> stack = new Stack<>();
+        Deque<Character> deque = new ArrayDeque<>();
 
-        // Insert characters into Queue and Stack
         for (int i = 0; i < input.length(); i++) {
             char ch = input.charAt(i);
 
-            if (Character.isLetterOrDigit(ch)) {  // Ignore spaces & symbols
-                ch = Character.toLowerCase(ch);
-                queue.add(ch);   // Enqueue (FIFO)
-                stack.push(ch);  // Push (LIFO)
+            if (Character.isLetterOrDigit(ch)) { // Ignore spaces & symbols
+                deque.addLast(Character.toLowerCase(ch));
             }
         }
 
         boolean isPalindrome = true;
 
-        // Compare dequeue vs pop
-        while (!queue.isEmpty()) {
-            if (!queue.remove().equals(stack.pop())) {
+        while (deque.size() > 1) {
+            char front = deque.removeFirst();
+            char rear = deque.removeLast();
+
+            if (front != rear) {
                 isPalindrome = false;
                 break;
             }
