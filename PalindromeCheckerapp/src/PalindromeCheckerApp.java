@@ -3,33 +3,37 @@ import java.util.Stack;
 import java.util.Scanner;
 public class PalindromeCheckerApp {
 
-    public class RecursivePalindrome {
+    public class CleanPalindromeCheck {
 
-        static boolean isPalindrome(String str, int start, int end) {
+        public static boolean isPalindrome(String input) {
 
-            if (start >= end)
-                return true;
+            // Normalize string (remove special chars & convert to lowercase)
+            input = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
 
-            if (str.charAt(start) != str.charAt(end))
-                return false;
+            int left = 0;
+            int right = input.length() - 1;
 
-            return isPalindrome(str, start + 1, end - 1);
+            // Two-pointer comparison
+            while (left < right) {
+                if (input.charAt(left) != input.charAt(right))
+                    return false;
+
+                left++;
+                right--;
+            }
+
+            return true;
         }
 
-    public static void main(String[] args){
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Enter a string: ");
-        String input = sc.nextLine();
+        public static void main(String[] args){ Scanner sc = new Scanner(System.in);
+            System.out.print("Enter a string: ");
+            String input = sc.nextLine();
 
-        input = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+            if (isPalindrome(input))
+                System.out.println("The string is a Palindrome.");
+            else
+                System.out.println("The string is NOT a Palindrome.");
 
-        boolean result = isPalindrome(input, 0, input.length() - 1);
-
-        if (result)
-            System.out.println("The string is a Palindrome.");
-        else
-            System.out.println("The string is NOT a Palindrome.");
-
-        sc.close();
-    }
+            sc.close();
+        }
     }
